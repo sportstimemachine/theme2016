@@ -417,6 +417,3 @@ function summit_upcoming() {
 	register_post_type( 'summit_Upcoming' , $args );
         flush_rewrite_rules();
 }
-
-	
-?>
