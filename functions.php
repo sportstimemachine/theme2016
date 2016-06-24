@@ -180,7 +180,7 @@ function stark_radio() {
 	  ); 
  
 	register_post_type( 'Stark_Radio' , $args );
-        flush_rewrite_rules();
+    
 }
 
 
@@ -239,7 +239,7 @@ function stark_sponsors() {
 	  ); 
  
 	register_post_type( 'Stark_Sponsors' , $args );
-        flush_rewrite_rules();
+    
 }
 
 //============================================================
@@ -278,7 +278,7 @@ function stark_upcoming() {
 	  ); 
  
 	register_post_type( 'Stark_Upcoming' , $args );
-        flush_rewrite_rules();
+    
 }
 
 //============================================================
@@ -318,7 +318,7 @@ function summit_radio() {
 	  ); 
  
 	register_post_type( 'Summit_Radio' , $args );
-        flush_rewrite_rules();
+    
 }
 
 
@@ -376,7 +376,7 @@ function summit_sponsors() {
 	  ); 
  
 	register_post_type( 'Summit_Sponsors' , $args );
-        flush_rewrite_rules();
+    
 }
 
 //============================================================
@@ -415,5 +415,5 @@ function summit_upcoming() {
 	  ); 
  
 	register_post_type( 'summit_Upcoming' , $args );
-        flush_rewrite_rules();
+    
 }
