@@ -26,8 +26,6 @@ if ( is_page() ){
         <link href="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.fancybox/jquery.fancybox.css"  rel="stylesheet" type="text/css"/>
         <link rel="alternate" type="application/rss+xml" title="Stark Posts" href="/feed/?post_type=stark_radio" />
         <link rel="alternate" type="application/rss+xml" title="Summit Posts" href="/feed/?post_type=summit_radio" />
-
-        <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.fancybox/jquery.fancybox.js"></script>
         <script src="http://www.google.com/jsapi"></script>
 

@@ -44,8 +44,8 @@ $radio = wp_get_attachment_url( $radio );
                     ?>
 
                     <div style="text-align:center;margin-bottom:10px;">
-                        <object type="application/x-shockwave-flash" data="/template/player_mp3_mini.swf" width="200" height="20">
-                            <param name="movie" value="/template/player_mp3_mini.swf" />
+                        <object type="application/x-shockwave-flash" data="<?php echo get_stylesheet_directory_uri(); ?>/js/player_mp3_mini.swf" width="200" height="20">
+                            <param name="movie" value="<?php echo get_stylesheet_directory_uri(); ?>/js/player_mp3_mini.swf" />
                             <param name="bgcolor" value="#27475E" />
                             <param name="FlashVars" value="mp3=<?php echo $radio;?>" />
                         </object>
