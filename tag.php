@@ -11,7 +11,7 @@
     $tokens = $tokens[sizeof($tokens)-2];
     ?>
     <?
-    query_posts('post_type=1480whbcposts&tag='.$tokens.'');
+    query_posts('post_type=stark_radio&tag='.$tokens.'');
     if ( have_posts() ) : ?>
 
     <header class="page-header">

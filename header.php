@@ -24,8 +24,8 @@ if ( is_page() ){
         <meta name="description" content="<?php bloginfo('description'); ?>" />
         <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.fancybox/jquery.fancybox.css"  rel="stylesheet" type="text/css"/>
-        <link rel="alternate" type="application/rss+xml" title="Stark Posts" href="http://sportstimemachine.net/feed/?post_type=1480whbcposts" />
-        <link rel="alternate" type="application/rss+xml" title="Summit Posts" href="http://sportstimemachine.net/feed/?post_type=1350warfposts" />
+        <link rel="alternate" type="application/rss+xml" title="Stark Posts" href="/feed/?post_type=stark_radio" />
+        <link rel="alternate" type="application/rss+xml" title="Summit Posts" href="/feed/?post_type=summit_radio" />
 
         <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.fancybox/jquery.fancybox.js"></script>
@@ -108,7 +108,7 @@ if ( is_page() ){
                     <div class="bl_header">
                         <h1><a href="/"></a></h1>
                         <?php
-                        if ( $post->post_name != 'terms-and-conditions-of-use-agreement' && $post->post_name != 'privacy-policy' && $post->post_name != 'rss-feeds' ){
+                        if ( $post->post_name !== 'terms-and-conditions-of-use-agreement' && $post->post_name !== 'privacy-policy' && $post->post_name !== 'rss-feeds' ){
 
                         ?>
                         <div class="bl_search">

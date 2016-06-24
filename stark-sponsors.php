@@ -8,8 +8,9 @@ $parent = $post_data->post_name;
 $side = $parent;
 $parent = substr($parent,0,4);
 $args = array( 'post_type' => 'stark_sponsors', 'post_status'=>'publish','numberposts'=>-1);
-$sponsors = get_posts( $args ); 
-$sponsors = (array) $sponsors;
+
+global $post;
+$sponsors = new WP_Query( $args );
 
 ?>
 <script>
@@ -30,48 +31,58 @@ $sponsors = (array) $sponsors;
         <ul>
 
             <?php 
-            $count= 0;
-            foreach($sponsors as $sponsor){
-                $sponsor_array = (array) $sponsor;
-                $id = $sponsor_array['ID'];
-                $sponsor = get_post_custom($sponsor->ID);
+            
+            $count = 0;
+            
+            if ( $sponsors->have_posts() ) : 
+            
+                while ( $sponsors->have_posts() ) : $sponsors->the_post();
+            
+                    $link = get_post_meta( get_the_ID(), 'link', true );
+                    $has_http = preg_match_all( '/(http)?(s)?(:)?(\/\/)/i', $link, $matches );
+                    if ( $has_http == 0 ) {
+                        $link = '//' . $link;
+                    }
 
-                if(stripos($sponsor['link'][0],'http:') !== FALSE){
-                    $link = $sponsor['link'][0];
-                }else{
-                    $link = 'http://'.$sponsor['link'][0].'';
-                }
-
-                $logo = wp_get_attachment_image_src($sponsor['logo'][0], 'full', '');
-            ?>
-            <?php if($sponsor['coupon'][0] == '' && $sponsor['coupon_active'][0] != 'yes'){?>
-            <li>
-                <a target="_blank" href="<?php echo $link?>">
-                    <?php if($logo[0] != ''){?>
-                    <img src="<?php echo $logo[0]?>" width="122" height="105"></a> 
-                <?php } else{ ?>
-                <div style="background-color:#ffffff; color:#999999;border:1px #999999 solid;width:122px; height:105px;">
-                    <p style="font-size:16px;text-align:center;position:relative;top:30%;"><?php echo $sponsor_array['post_title']?></p>
-                </div>
-                <?php } ?>
-            </li>
-            <?php }else{?>
-            <li>
-                <a class="sponsor" href="/<?php echo $side;?>/coupon?id=<?php echo $id?>"  >
-                    <img src="<?php echo $logo[0]?>" width="122" height="105">
-                </a> 
-            </li>
-            <?php } ?>
-            <?php $count++; 
-                if($count%5 == 0){
-            ?>
-            <div style="clear:both;"></div>
-            <?php
-                }
-            } ?>
-
+                    $logo = wp_get_attachment_image_src( get_post_meta( get_the_ID(), 'logo', true ), 'full', '' );
+                    
+                    if ( get_post_meta( get_the_ID(), 'coupon', true ) == '' && get_post_meta( get_the_ID(), 'coupon_active', true ) !== 'yes' ) : ?>
+                
+                        <li>
+                            <a target="_blank" href="<?php echo $link; ?>">
+                                <?php if ( $logo[0] !== '' ) : ?>
+                                    <img src="<?php echo $logo[0]?>" width="122" height="105" />
+                                <?php else : ?>
+                                    <div style="background-color:#ffffff; color:#999999;border:1px #999999 solid;width:122px; height:105px;">
+                                        <p style="font-size:16px;text-align:center;position:relative;top:30%;"><?php the_title(); ?></p>
+                                    </div>
+                                <?php endif; ?>
+                        </li>
+                            
+                    <?php else : ?>
+                            
+                        <li>
+                            <a class="sponsor" href="/<?php echo $side;?>/coupon?id=<?php the_ID(); ?>">
+                                <img src="<?php echo $logo[0]?>" width="122" height="105" />
+                            </a> 
+                        </li>
+            
+                    <?php endif;
+                                     
+                    $count++;
+                                     
+                    if ( $count%5 == 0 ) : ?>
+                        <div style="clear:both;"></div>
+                    <?php endif;
+                
+                endwhile;
+            
+                wp_reset_postdata();
+            
+            endif; ?>
 
         </ul>
+        
         <div class="blClear"></div>
         <div class="bl_form">
             <h5>Contact Us For Sponsorship Opportunities</h5>
