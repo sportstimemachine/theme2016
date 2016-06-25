@@ -11,19 +11,8 @@ $args = array( 'post_type' => 'stark_sponsors', 'post_status'=>'publish','number
 
 global $post;
 $sponsors = new WP_Query( $args );
-
 ?>
-<script>
-    ( function( $ ) {
 
-        $('.sponsor_form').submit(function() {	
-            $.post('/template/sponsor_submit.php',$(this).serialize());
-            $('.bl_form').html('<p style="font-size:16px;height:200px;text-align:center;">Thank you for your interest in sponsoring The Sports Time Machine! A member of our team will be in touch with you shortly to discuss the opportunities available.</p>');
-            return false;
-        });
-
-    } )( jQuery );
-</script>
 <!-- Begin blBody -->
 <div id="blBody">
     <div id="blSponsors">

@@ -6,15 +6,6 @@ Template Name: Contact
 get_header();
 
 ?>
-<script>
-    ( function( $ ) {
-        $('#contact_form').submit(function() {	
-            $.post('/template/contact_submit.php',$(this).serialize());
-            $('.bl_form').html('<p style="font-size:16px;height:200px;text-align:center;">Thank you for your interest in The Sports Time Machine! If your message requires a reply, you will hear from us shortly. We thank you for your feedback and hope to hear from you again!</p>');
-            return false;
-        });
-    } )(jQuery);
-</script>
 
 <!-- Begin blBody -->
 <div id="blBody">

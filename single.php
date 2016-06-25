@@ -5,12 +5,7 @@
  */
 
 get_header();
-?>
-<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jplayer/jquery.jplayer.min.js"></script>
-<link href="<?php echo get_stylesheet_directory_uri(); ?>/js/jplayer/jplayer.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo get_stylesheet_directory_uri(); ?>/js/jplayer/blue_monday/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
 
-<?php
 global $post;
 
 $radio = get_post_meta( get_the_ID(), 'audio', true );
@@ -39,21 +34,21 @@ $radio = wp_get_attachment_url( $radio );
 
                 <div class="bl_post_text">
                     <?php the_content();?>
-                    <?php if($radio != ''){
-    if ( stripos($_SERVER['HTTP_USER_AGENT'],'msie') !== FALSE ){
+                    <?php if ( $radio !== '' ) {
+                        if ( stripos( $_SERVER['HTTP_USER_AGENT'], 'msie' ) !== FALSE ) {
                     ?>
 
                     <div style="text-align:center;margin-bottom:10px;">
                         <object type="application/x-shockwave-flash" data="<?php echo get_stylesheet_directory_uri(); ?>/js/player_mp3_mini.swf" width="200" height="20">
                             <param name="movie" value="<?php echo get_stylesheet_directory_uri(); ?>/js/player_mp3_mini.swf" />
                             <param name="bgcolor" value="#27475E" />
-                            <param name="FlashVars" value="mp3=<?php echo $radio;?>" />
+                            <param name="FlashVars" value="mp3=<?php echo $radio; ?>" />
                         </object>
                     </div>
                     <?php
     } else{ ?>
                     <div style="margin-bottom:10px;">
-                        <div id="jquery_jplayer_<?php echo get_the_ID();?>" class="jp-jplayer"></div>
+                        <div id="jquery_jplayer_<?php echo get_the_ID();?>" class="jp-jplayer" data-file="<?php echo $radio; ?>" data-swf="<?php echo get_stylesheet_directory_uri(); ?>/js/jplayer"></div>
                         <div id="jp_container_<?php echo get_the_ID();?>" class="jp-audio" style="margin: 0px auto">
                             <div class="jp-type-single">
                                 <div class="jp-gui jp-interface">
@@ -96,27 +91,7 @@ $radio = wp_get_attachment_url( $radio );
                             </div>
                         </div>
                     </div>
-
-
-                    <script>
-                        ( function( $ ) {
-                            $(document).ready(function(){
-                                $("#jquery_jplayer_<?php echo get_the_ID();?>").jPlayer({
-                                    cssSelectorAncestor: "#jp_container_<?php echo get_the_ID();?>",
-                                    play: function() { // To avoid both jPlayers playing together.
-                                        $(this).jPlayer("pauseOthers");
-                                    },
-                                    ready: function (event) { $(this).jPlayer("setMedia", {
-                                        mp3:"<?php echo $radio;?>"
-                                    });
-                                                            },
-                                    swfPath: "<?php echo get_stylesheet_directory_uri(); ?>/js/jplayer",
-                                    supplied: "mp3",
-                                    wmode: "window"
-                                });
-                            })
-                        } )( jQuery );
-                    </script>
+                    
                     <?php
           }
 }  ?>    

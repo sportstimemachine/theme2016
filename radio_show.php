@@ -9,22 +9,6 @@ global $post;
 
 ?>
 
-<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jplayer/jquery.jplayer.min.js"></script>
-<link href="<?php echo get_stylesheet_directory_uri(); ?>/js/jplayer/jplayer.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo get_stylesheet_directory_uri(); ?>/js/jplayer/blue_monday/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
-
-<script>
-
-    ( function( $ ) {
-        $('.cd_request').submit(function() {	
-            $.post('/template/cd_request_submit.php',$(this).serialize());
-            $('.bl_form').html('<p style="font-size:16px;height:200px;width:400px;">Thank you!<br/>  We will be sending you a CD of the requested episode.</p>');
-            return false;
-        } )( jQuery );
-
-    });
-</script>
-
 <!-- Begin blBody -->
 
 

@@ -26,10 +26,30 @@ function sportstm_register_styles_scripts() {
         array( THEME_ID . '-parent' ),
         defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : THEME_VERSION
     );
+    
+    // All the custom JavaScript
+    wp_register_script(
+        THEME_ID,
+        get_stylesheet_directory_uri() . '/script.js',
+        array( 'jquery', THEME_ID . '-fancybox', THEME_ID . '-jplayer' ),
+        defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : THEME_VERSION,
+        true
+    );
+    
+    wp_localize_script( THEME_ID, 'wpData', array( 'themeDirectory' => get_stylesheet_directory_uri() ) );
+    
+    // Google JSAPI
+    wp_register_script(
+        THEME_ID . '-google-jsapi',
+        '//www.google.com/jsapi',
+        array(),
+        defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : THEME_VERSION,
+        false
+    );
 
     // jQuery Fancybox CSS
     wp_register_style(
-        THEME_ID . '-fancybox-css',
+        THEME_ID . '-fancybox',
         get_stylesheet_directory_uri() . '/js/jquery.fancybox/jquery.fancybox.css',
         null,
         defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : THEME_VERSION
@@ -37,8 +57,33 @@ function sportstm_register_styles_scripts() {
 
     // jQuery Fancybox JS
     wp_register_script(
-        THEME_ID . '-fancybox-js',
+        THEME_ID . '-fancybox',
         get_stylesheet_directory_uri() . '/js/jquery.fancybox/jquery.fancybox.js',
+        array( 'jquery' ),
+        defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : THEME_VERSION,
+        true
+    );
+    
+    // jQuery jPlayer base CSS
+    wp_register_style(
+        THEME_ID . '-jplayer',
+        get_stylesheet_directory_uri() . '/js/jplayer/jplayer.css',
+        null,
+        defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : THEME_VERSION
+    );
+    
+    // jQuery jPlayer Blue Monday CSS
+    wp_register_style(
+        THEME_ID . '-jplayer-blue-monday',
+        get_stylesheet_directory_uri() . '/js/jplayer/blue_monday/jplayer.blue.monday.css',
+        array( THEME_ID . '-jplayer' ),
+        defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : THEME_VERSION
+    );
+    
+    // jQuery jPlayer JS
+    wp_register_script(
+        THEME_ID . '-jplayer',
+        get_stylesheet_directory_uri() . '/js/jplayer/jquery.jplayer.min.js',
         array( 'jquery' ),
         defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : THEME_VERSION,
         true
@@ -52,8 +97,16 @@ function sportstm_enqueue_styles_scripts() {
     wp_enqueue_style( THEME_ID . '-parent' );
     wp_enqueue_style( THEME_ID );
 
-    wp_enqueue_style( THEME_ID . '-fancybox-css' );
-    wp_enqueue_script( THEME_ID . '-fancybox-js' );
+    wp_enqueue_style( THEME_ID . '-fancybox' );
+    wp_enqueue_script( THEME_ID . '-fancybox' );
+    
+    wp_enqueue_style( THEME_ID . '-jplayer' );
+    wp_enqueue_style( THEME_ID . '-jplayer-blue-monday' );
+    wp_enqueue_script( THEME_ID . '-jplayer' );
+    
+    wp_enqueue_script( THEME_ID . '-google-jsapi' );
+    
+    wp_enqueue_script( THEME_ID );
 
 }
 

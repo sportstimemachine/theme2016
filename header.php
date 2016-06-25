@@ -1,21 +1,3 @@
-<?php
-$ancestors = get_post_ancestors($post->ID);
-$parent = $ancestors[0];
-
-if ( is_page() ){
-    if( $parent) { //if its a CHILD page
-        $parent = get_page($parent);
-        $links = get_pages(array("child_of"=>$parent->ID,'sort_column'=>'menu_order'));
-    } else { //if it's a PARENT page
-        $parent = $post;
-        $links = get_pages(array("child_of"=>get_the_ID(),'sort_column'=>'menu_order'));
-    }
-} else {
-    $parent = get_page_by_path(str_replace('posts','',$post->post_type));
-    $links = get_pages(array("child_of"=>$parent->ID, 'sort_column'=>'menu_order'));
-}
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,35 +26,9 @@ if ( is_page() ){
                 <!-- End blHeader -->
         
         <?php else : ?>
-        
-        <script src="http://www.google.com/jsapi"></script>
-        <script>google.load("swfobject", "2.2");</script>
-        <script>
-            ( function( $ ) {
-                $(document).ready(function(){
-                    function preload(arrayOfImages) {
-                        $(arrayOfImages).each(function(){
-                            $('<img/>')[0].src = '<?php echo get_stylesheet_directory_uri(); ?>/images/buttons2.png';
-                            // Alternatively you could use:
-                            // (new Image()).src = this;
-                        });
-                    }
-
-                    if($('#blContent').height() < 1350){
-                        $('#blContent').css('background-image','url(<?php echo get_stylesheet_directory_uri(); ?>/images/bg2_short.png)');
-                    }
-                    else{
-                        $('#blContent').css('background-image','url(<?php echo get_stylesheet_directory_uri(); ?>/images/bg2.png)');
-                    }		
-                    $('#blBody').append('<div id="bodyBottom"></div>');
-                    $('.modal').fancybox({
-                        'width' : 'auto',
-                        'height' : 'auto',
-                        'scrolling' : 'no'
-                    });
-                });
-            } )( jQuery );
-
+                
+        <script type="text/javascript">
+            google.load("swfobject", "2.2");
         </script>
                 
     </head>
