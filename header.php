@@ -22,13 +22,30 @@ if ( is_page() ){
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><?php bloginfo('name'); ?> <?php wp_title(); ?></title>
         <meta name="description" content="<?php bloginfo('description'); ?>" />
-        <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.fancybox/jquery.fancybox.css"  rel="stylesheet" type="text/css"/>
-        <link rel="alternate" type="application/rss+xml" title="Stark Posts" href="/feed/?post_type=stark_radio" />
-        <link rel="alternate" type="application/rss+xml" title="Summit Posts" href="/feed/?post_type=summit_radio" />
-        <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.fancybox/jquery.fancybox.js"></script>
-        <script src="http://www.google.com/jsapi"></script>
+        
+        <?php 
+        
+        wp_head();
+        
+        if ( is_front_page() ) : ?>
+        
+    </head>
 
+    <body>
+        <!-- Begin blContent -->
+        <div id="blContent">
+            <!-- Begin blContext -->
+            <div id="blContext">
+                <!-- Begin blHeader -->
+                <div id="blHeader">
+                    <div class="bl_home_header"></div>
+                    <div class="bl_home_header2"></div>
+                </div>
+                <!-- End blHeader -->
+        
+        <?php else : ?>
+        
+        <script src="http://www.google.com/jsapi"></script>
         <script>google.load("swfobject", "2.2");</script>
         <script>
             ( function( $ ) {
@@ -57,20 +74,7 @@ if ( is_page() ){
             } )( jQuery );
 
         </script>
-        <script type="text/javascript">
-
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-30047922-3']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
-        </script>
-        <?php wp_head(); ?>
+                
     </head>
 
     <body>
@@ -150,3 +154,5 @@ if ( is_page() ){
                     </div>
                 </div>
                 <!-- End blHeader -->
+                
+        <?php endif; ?>

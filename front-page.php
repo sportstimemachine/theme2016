@@ -1,6 +1,7 @@
 <?php
 
-get_template_part('home_header');
+get_header();
+
 $args1480 = array( 'post_type' => 'stark_upcoming', 'post_status'=>'publish','post_limit'=>1,'orderby'=>'post_date','order'=>'ASC');
 $args1350 = array( 'post_type' => 'summit_upcoming', 'post_status'=>'publish','post_limit'=>1, 'orderby'=>'post_date','order'=>'ASC');
 $upcoming1480 = get_posts( $args1480 ); 
