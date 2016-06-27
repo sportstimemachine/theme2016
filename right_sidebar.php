@@ -22,7 +22,11 @@ $slug = $post->post_name;
 <!-- Begin bl_right -->
 <div class="bl_right">     
     <ul>
-        <?php if ( $slug !== 'radio-show' ) : ?>
+        <?php if ( $slug !== 'radio-show' ) : 
+        
+            dynamic_sidebar( 'right-sidebar' );
+        
+            ?>
         
             <li>
                 <h3 class="box_header">Our Sponsors</h3>
@@ -147,76 +151,12 @@ $slug = $post->post_name;
                 </div>
             </li>
         
-        <?php else : ?>
+        <?php else : 
         
-            <!-- RADIO SHOW SIDEBAR START-->
-            <li class="big_box">
-                <h3 class="box_header" style="margin-bottom:0;">Radio Show Archive</h3>
-                <div class="bl_box ">
-                    <ul>
-                        
-                        <?php
-                            $exp_uri = explode("/",$_SERVER['REQUEST_URI']);
-                            $station = str_replace( '-', '_', $exp_uri[1] );
-                        
-                            if ( strpos( $station, '?s=' ) >= 0 ) {
-                                $station = 'summit_radio';
-                            }
-                        
-                            $args = array(
-                                'post_type'=>$station,
-                                'numberposts'=>-1,
-                                'orderby'=>'post_date',
-                                'order'=>'ASC'
-                            );
-                        
-                            $radio_shows = new WP_Query( $args );
+            dynamic_sidebar( 'radio-show-sidebar' ); 
 
-                            $years = array();
-
-                            if ( $radio_shows->have_posts() ) : 
-                        
-                                while ( $radio_shows->have_posts() ) : $radio_shows->the_post();
-                        
-                                    $post_year = get_the_time( 'Y' );
-                                    $post_month = get_the_time( 'F' );
-                                    $years[$post_year][$post_month]['total']++;
-                                    $years[$post_year][$post_month]['posts'][] = array( 'title'=> get_the_title(), 'permalink'=>get_permalink( get_the_ID() ) );
-                        
-                                endwhile;
-                        
-                                wp_reset_postdata();
-                        
-                            endif;
-
-
-                            foreach ( $years as $year_key => $year ) : ?>
-                        
-                                <li class="radio_archive_year"><?php echo $year_key; ?>
-                                    
-                                    <ul>
-                                    
-                                    <?php foreach ( $year as $month_key => $month ) : ?>
-                                        
-                                        <li class="radio_archive_month">
-                                            <a href="/<?php echo $station?>/radio-show/?month=<?php echo $month_key?>-<?php echo $year_key?>">
-                                                <?php echo $month_key; ?> (<?php echo $month['total']; ?>)</a>
-                                        </li>
-                                        
-                                    <?php endforeach; ?>
-                                        
-                                    </ul>
-                                    
-                                </li>
-                                        
-                            <?php endforeach; ?>
-                        
-                    </ul>								
-                </div>
-            </li>
-
-        <?php endif; ?>
-        <!-- RADIO SHOW SIDEBAR END-->
+        endif; ?>
+        
     </ul>
 </div>
 <!-- End bl_right -->

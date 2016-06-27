@@ -159,6 +159,45 @@ function sportstm_nav_menus() {
 
 }
 
+add_action( 'widgets_init', 'sportstm_sidebars' );
+function sportstm_sidebars() {
+    
+    // Right Sidebar
+    register_sidebar( array(
+        'name' => __( 'Default Right Sidebar', THEME_ID ),
+        'id' => 'right-sidebar',
+        'description' => __( 'This is the default sidebar that appears.', THEME_ID ),
+        'before_widget' => '<li id="%1$s" class="widget big_box %2$s">',
+        'before_title' => '<h3 class="box_header" style="margin-bottom: 0;">',
+        'after_title' => '</h3>',
+        'before_content' => '<div class="bl_box">',
+        'after_content' => '</div>',
+    ) );
+    
+    // Radio Show Sidebar
+    register_sidebar( array(
+        'name' => __( 'Radio Show Sidebar', THEME_ID ),
+        'id' => 'radio-show-sidebar',
+        'description' => __( 'This is the sidebar that appears for Radio Show pages', THEME_ID ),
+        'before_widget' => '<li id="%1$s" class="widget big_box %2$s">',
+        'before_title' => '<h3 class="box_header" style="margin-bottom: 0;">',
+        'after_title' => '</h3>',
+        'before_content' => '<div class="bl_box">',
+        'after_content' => '</div>',
+    ) );
+    
+}
+
+// Add Widgets
+add_action( 'widgets_init', 'sportstm_widgets' );
+function sportstm_widgets() {
+    
+    require_once( 'widgets/class-sportstm-archive.php' );
+    
+    register_widget( 'SportsTM_Archives' );
+    
+}
+
 add_filter( 'excerpt_length', 'sportstm_custom_excerpt_length' );
 function sportstm_custom_excerpt_length( $length ) {
     return 20;

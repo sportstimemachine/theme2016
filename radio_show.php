@@ -31,8 +31,9 @@ global $post;
             );
 
             if ( $_REQUEST['month'] ){
-                $args['year'] = date("Y",strtotime($_REQUEST['month']));
-                $args['monthnum'] = date("m",strtotime($_REQUEST['month']));
+                $args['date_query'] = array();
+                $args['date_query'][]['year'] = date( "Y", strtotime($_REQUEST['month'] ) );
+                $args['date_query'][]['monthnum'] = date( "m", strtotime($_REQUEST['month'] ) );
             }
 
             $radio_shows = new WP_Query($args);
