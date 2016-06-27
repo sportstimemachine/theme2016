@@ -1,11 +1,13 @@
 <?php
-if(strpos($_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"],'stark') !== FALSE){ 
+if ( strpos($_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], 'stark' ) >= 0 ) {
     $args = array( 'post_type' => 'stark_sponsors', 'post_status'=>'publish', 'numberposts' => 8);
 }
-if(strpos($_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"],'summit') !== FALSE){
+
+if( strpos( $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], 'summit' ) >= 0 ) {
     $args = array( 'post_type' => 'summit_sponsors', 'post_status'=>'publish','numberposts' => 8);
 }
-if(strpos($_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"],'s') !== FALSE){
+
+if ( strpos( $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], '?s=' ) >= 0 ) {
     $args = array( 'post_type' => 'summit_sponsors', 'post_status'=>'publish','numberposts' => 8);
 }
 
@@ -33,12 +35,11 @@ $slug = $post->post_name;
                             while ( $sponsors->have_posts() ) : $sponsors->the_post();
                         
                                 $logo = wp_get_attachment_image_src( get_post_meta( get_the_ID(), 'logo', true ), 'full', '' );
-
-                                if ( stripos( get_post_meta( get_the_ID(), 'link', true ),'http:') !== FALSE ) {
-                                    $link = get_post_meta( get_the_ID(), 'link', true );
-                                }
-                                else{
-                                    $link = 'http://' . get_post_meta( get_the_ID(), 'link', true );
+                                $link = get_post_meta( get_the_ID(), 'link', true );
+                        
+                                $has_http = preg_match_all( '/(http)?(s)?(:)?(\/\/)/i', $link, $matches );
+                                if ( $has_http == 0 ) {
+                                    $link = '//' . $link;
                                 }
 
                                 if ( get_post_meta( get_the_ID(), 'coupon', true ) == '' && get_post_meta( get_the_ID(), 'coupon_active', true ) !== 'yes' ) : ?>
@@ -67,12 +68,14 @@ $slug = $post->post_name;
             </li>
             <li>
                 <h3 class="box_header">Newsletter Signup</h3>
+                
                 <div class="bl_box">
                     <!-- Begin MailChimp Signup Form -->
                     <style type="text/css">
                         #mce-EMAIL{color: #3d3d3d; font-style:italic; background: url(<?php echo get_stylesheet_directory_uri(); ?>/images/search-field-bg.gif) repeat-x left top; height: 22px; padding: 2px 5px 0 5px; width:148px; border: none; border-left: 1px solid #FFF; border-top: 1px solid #FFF;}
                         #mc-embedded-subscribe{color:transparent;background: url(<?php echo get_stylesheet_directory_uri(); ?>/images/submit.png) no-repeat; width: 67px; height: 25px; border:none;float: right;}
                     </style>
+                    
                     <div id="mc_embed_signup">
                         <form action="http://sportstimemachine.us4.list-manage.com/subscribe/post?u=323531635e3b2122e47ba090e&amp;id=a48f0545b9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
                             <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
@@ -155,6 +158,11 @@ $slug = $post->post_name;
                         <?php
                             $exp_uri = explode("/",$_SERVER['REQUEST_URI']);
                             $station = str_replace( '-', '_', $exp_uri[1] );
+                        
+                            if ( strpos( $station, '?s=' ) >= 0 ) {
+                                $station = 'summit_radio';
+                            }
+                        
                             $args = array(
                                 'post_type'=>$station,
                                 'numberposts'=>-1,

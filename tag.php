@@ -1,4 +1,5 @@
-<?php /**
+<?php 
+/**
  * The template used to display Tag Archive pages
  */
 ?>
@@ -49,7 +50,7 @@
             <a href="<?php echo the_permalink()?>"><h4><?php echo the_title()?></h4></a>
             <h5>By <? the_author();?></h5>
             <div class="bl_post_text">
-                <? the_excerpt();?> <? // end of the bl_post_text div in excerpt via functions.php ?>
+                <?php the_excerpt(); // end of the bl_post_text div in excerpt via functions.php ?>
             </div>
             <?php
             if ( get_the_tag_list('', ', ','') != '' ){

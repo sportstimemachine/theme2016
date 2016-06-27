@@ -3,10 +3,6 @@
 Template Name: Stark - Sponsors
 */
 get_header();
-$post_data = get_post($post->post_parent);
-$parent = $post_data->post_name;
-$side = $parent;
-$parent = substr($parent,0,4);
 $args = array( 'post_type' => 'stark_sponsors', 'post_status'=>'publish','numberposts'=>-1);
 
 global $post;
@@ -75,7 +71,7 @@ $sponsors = new WP_Query( $args );
         <div class="blClear"></div>
         <div class="bl_form">
             <h5>Contact Us For Sponsorship Opportunities</h5>
-            <form method="post" action="/template/sponsor_submit.php" class="sponsor_form">
+            <form method="post" action="<?php echo get_stylesheet_directory_uri(); ?>/forms/sponsor_submit.php" class="sponsor_form">
 
                 <table border="0" cellpadding="0" cellspacing="0">
 

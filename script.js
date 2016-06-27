@@ -3,8 +3,6 @@
     function preload(arrayOfImages) {
         $(arrayOfImages).each(function(){
             $('<img/>')[0].src = wpData.themeDirectory + '/images/buttons2.png';
-            // Alternatively you could use:
-            // (new Image()).src = this;
         });
     }
 
@@ -18,6 +16,7 @@
         }	
 
         $('#blBody').append('<div id="bodyBottom"></div>');
+        
         $('.modal').fancybox({
             'width' : 'auto',
             'height' : 'auto',
@@ -26,43 +25,23 @@
 
         if ( $( '.sponsor_form' ).length > 0 ) {
 
-            $('.sponsor_form').submit(function() {	
-                $.post('/template/sponsor_submit.php',$(this).serialize());
-                $('.bl_form').html('<p style="font-size:16px;height:200px;text-align:center;">Thank you for your interest in sponsoring The Sports Time Machine! A member of our team will be in touch with you shortly to discuss the opportunities available.</p>');
-                return false;
-            });
-
-        }
-
-        if ( $( '#contact_form' ).length > 0 ) {
-
-            $('#contact_form').submit(function() {	
-                $.post('/template/contact_submit.php',$(this).serialize());
-                $('.bl_form').html('<p style="font-size:16px;height:200px;text-align:center;">Thank you for your interest in The Sports Time Machine! If your message requires a reply, you will hear from us shortly. We thank you for your feedback and hope to hear from you again!</p>');
-                return false;
-            });
-
-        }
-
-        if ( $( '.cd_request' ).length > 0 ) {
-
-            $('.cd_request').submit(function() {	
-                $.post('/template/cd_request_submit.php',$(this).serialize());
-                $('.bl_form').html('<p style="font-size:16px;height:200px;width:400px;">Thank you!<br/>  We will be sending you a CD of the requested episode.</p>');
-                return false;
+            $('.sponsor_form').submit( function( event ) {	
+                
+                event.preventDefault();
+                
+                $.ajax( {
+                    type: 'POST',
+                    url: $( this ).attr( 'action' ),
+                    data: $( this ).serialize(),
+                    success: function() {
+                        $('.bl_form').html('<p style="font-size:16px;height:200px;text-align:center;">Thank you for your interest in sponsoring The Sports Time Machine! A member of our team will be in touch with you shortly to discuss the opportunities available.</p>');
+                    },
+                    error: function() {
+                        $('.bl_form').html('<p style="font-size:16px;height:200px;text-align:center;">Something went wrong.</p>');
+                    }
+                } );
+                
             } );
-
-        }
-
-        if ( $( '.car-monthlisting' ).length > 0 ) {
-
-            $('.car-monthlisting').hide();
-
-            $('.car-yearmonth').click(function(){
-
-                $('.car-monthlisting').toggle();
-
-            });
 
         }
 

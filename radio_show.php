@@ -8,12 +8,6 @@ get_header();
 global $post;
 
 ?>
-
-<!-- Begin blBody -->
-
-
-
-
 <div id="blRadioShow">
 
 
@@ -61,4 +55,5 @@ global $post;
     </div>
     <div class="blClear"></div>
 </div>
+
 <?php get_footer();
