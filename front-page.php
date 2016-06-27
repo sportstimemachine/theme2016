@@ -5,9 +5,9 @@ get_header();
 $args1480 = array( 'post_type' => 'stark_upcoming', 'post_status'=>'publish','post_limit'=>1,'orderby'=>'post_date','order'=>'ASC');
 $args1350 = array( 'post_type' => 'summit_upcoming', 'post_status'=>'publish','post_limit'=>1, 'orderby'=>'post_date','order'=>'ASC');
 $upcoming1480 = get_posts( $args1480 ); 
-$upcoming_show1480 = (array) $upcoming1480[0];
+$upcoming1480 = $upcoming1480[0];
 $upcoming1350 = get_posts( $args1350 ); 
-$upcoming_show1350 = (array) $upcoming1350[0];
+$upcoming1350 = $upcoming1350[0];
 
 
 ?>
@@ -23,8 +23,8 @@ $upcoming_show1350 = (array) $upcoming1350[0];
             <div class="bl_highlight">
                 <h3>On The Next Radio Show</h3>
                 <div class="bl_text" style="height: 130px; overflow: hidden;">
-                    <h4><span><?php echo $upcoming_show1480['post_title'];?></span></h4>
-                    <p><?php echo $upcoming_show1480['post_content']?></p>
+                    <h4><span><?php echo $upcoming1480->post_title; ?></span></h4>
+                    <p><?php echo $upcoming1480->post_content; ?></p>
                 </div>
                 <div class="bl_logo_small"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/news-talk-logo.png" /></div>
             </div>
@@ -60,14 +60,14 @@ $upcoming_show1350 = (array) $upcoming1350[0];
 
         <!-- Begin bl_right -->
         <div class="bl_right">
-            <div class="bl_button"><a href="<?php bloginfo('url'); ?>/summit-radio"></a></div>
-            <div class="bl_radiologo"><a href="#"></a></div>
+            <div class="bl_button"><a href="/summit-radio"></a></div>
+            <div class="bl_radiologo"><a href="/summit-radio"></a></div>
             <!-- Begin bl_highlight -->
             <div class="bl_highlight">
                 <h3>On The Next Radio Show</h3>
                 <div class="bl_text" style="height: 130px; overflow: hidden;">
-                    <h4><span><a href="<?php echo $upcoming_show1350['guid']?>"><?php echo $upcoming_show1350['post_title'];?></a></span></h4>
-                    <p><?php echo $upcoming_show1350['post_content']?></p>
+                    <h4><span><?php echo $upcoming1350->post_title; ?></span></h4>
+                    <p><?php echo $upcoming1350->post_content; ?></p>
                 </div>
                 <div class="bl_logo_small"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/640_small.png" /></div>
             </div>
@@ -76,7 +76,7 @@ $upcoming_show1350 = (array) $upcoming1350[0];
             <div class="bl_box">
                 <h3>Latest Articles</h3>
                 <ul>
-                    <?php   $args = array( 'post_type' => '1350warfposts', 'posts_per_page' => 2 );
+                    <?php   $args = array( 'post_type' => 'summit_radio', 'posts_per_page' => 2 );
                     $loop = new WP_Query( $args );
                     while ( $loop->have_posts() ) : $loop->the_post(); 
                     $content = get_the_content();
