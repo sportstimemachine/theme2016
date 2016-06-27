@@ -1203,3 +1203,9 @@ img.aligncenter {
 .wpcf7-response-output {
     width: 500px;
 }
+
+/* Fixes after converting to a Child Theme */
+
+body {
+    text-align: left;
+}
