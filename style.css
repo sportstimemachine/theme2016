@@ -1209,3 +1209,11 @@ img.aligncenter {
 body {
     text-align: left;
 }
+
+.wp-caption {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    border-radius: none;
+}

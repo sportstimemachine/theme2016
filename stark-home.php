@@ -41,8 +41,9 @@ global $post;
         
             $count = 1; // Not zero-indexing so that Sponsor Ads only show up after the first three using Modulus 
         
+            $count_radio_shows = wp_count_posts( 'stark_radio' );
             // Used to ensure we grab enough Sponsors based on the number of Radio Shows
-            $sponsors_count = round( count( $radio_shows->posts ) / 10 ) * 3;
+            $sponsors_count = round( $count_radio_shows->publish / 10 ) * 3;
         
             $args = array( 
                 'post_type' => 'stark_sponsors',
@@ -50,11 +51,12 @@ global $post;
                 'meta_key' => 'banner',
                 'meta_compare' => '>',
                 'meta_value' => '0',
-                'numberposts' => $sponsors_count
+                'numberposts' => ( int ) $sponsors_count,
+                'posts_per_page' => 3,
+                'paged' => $paged,
             );
         
             $sponsors = get_posts( $args );
-            shuffle( $sponsors );
             $sponsor_count = 0;
         
             while ( $radio_shows->have_posts() ) : $radio_shows->the_post();
@@ -112,7 +114,11 @@ global $post;
                         <h5>By <?php the_author(); ?></h5>
                         
                         <div class="bl_post_text">
-                            <?php the_excerpt(); ?>
+                            <?php
+                                global $more;
+                                $more = 0;
+                                the_content('<div class="bl_read_more">Read the rest of this article</div>');
+                            ?>
                         </div>
                         
                         <?php if ( get_the_tag_list('', ', ','') !== '' ) : ?>
