@@ -41,39 +41,40 @@ global $post;
         
             $count = 1; // Not zero-indexing so that Sponsor Ads only show up after the first three using Modulus 
         
-            $count_radio_shows = wp_count_posts( 'stark_radio' );
-            // Used to ensure we grab enough Sponsors based on the number of Radio Shows
-            $sponsors_count = round( $count_radio_shows->publish / 10 ) * 3;
-        
             $args = array( 
                 'post_type' => 'stark_sponsors',
                 'post_status' => 'publish',
                 'meta_key' => 'banner',
                 'meta_compare' => '>',
                 'meta_value' => '0',
-                'numberposts' => ( int ) $sponsors_count,
-                'posts_per_page' => 3,
-                'paged' => $paged,
+                'numberposts' => -1,
+                'orderby' => 'rand',
             );
         
             $sponsors = get_posts( $args );
-            $sponsor_count = 0;
+            $sponsors_index = 0 + ( 3 * ( $paged - 1 ) );
+            $sponsors_count = count( $sponsors );
         
             while ( $radio_shows->have_posts() ) : $radio_shows->the_post();
         
                 if ( $count % 3 == 0 ) : 
         
-                    if ( $sponsors[$sponsor_count] ) : 
+                    if ( $sponsors_index > ( $sponsors_count - 1 ) ) :
         
-                        $random_sponsor_link = get_post_custom();
-                        $banner = wp_get_attachment_image_src( get_post_meta( $sponsors[$sponsor_count]->ID, 'banner', true ), 'full', '' );
+                        $sponsors_index = 0;
+        
+                    endif;
+        
+                    if ( $sponsors[$sponsors_index] ) :
+                        
+                        $banner = wp_get_attachment_image_src( get_post_meta( $sponsors[$sponsors_index]->ID, 'banner', true ), 'full', '' );
                     ?>
         
                         <div class="bl_post">
                             
                             <?php 
                             
-                            $link = get_post_meta( $sponsors[$sponsor_count]->ID, 'link', true );
+                            $link = get_post_meta( $sponsors[$sponsors_index]->ID, 'link', true );
                             $has_http = preg_match_all( '/(http)?(s)?(:)?(\/\/)/i', $link, $matches );
                             if ( $has_http == 0 ) {
                                 $link = '//' . $link;
@@ -91,7 +92,7 @@ global $post;
         
                     <?php endif;
                         
-                    $sponsor_count++;
+                    $sponsors_index++;
         
                 endif; ?>
         
