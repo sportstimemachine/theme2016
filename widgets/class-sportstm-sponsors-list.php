@@ -43,16 +43,16 @@ if ( ! class_exists( 'SportsTM_Sponsors_List' ) ) {
                         
                         <?php 
                         
-                        if ( strpos($_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], 'stark' ) >= 0 ) {
-                            $args = array( 'post_type' => 'stark_sponsors', 'post_status'=>'publish', 'numberposts' => 8);
+                        if ( strpos( $_SERVER["REQUEST_URI"], 'stark' ) !== false ) {
+                            $args = array( 'post_type' => 'stark_sponsors', 'post_status'=>'publish', 'numberposts' => 8, 'orderby' => 'rand');
                         }
 
-                        if( strpos( $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], 'summit' ) >= 0 ) {
-                            $args = array( 'post_type' => 'summit_sponsors', 'post_status'=>'publish','numberposts' => 8);
+                        if ( strpos( $_SERVER["REQUEST_URI"], 'summit' ) !== false ) {
+                            $args = array( 'post_type' => 'summit_sponsors', 'post_status'=>'publish','numberposts' => 8, 'orderby' => 'rand');
                         }
 
-                        if ( strpos( $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], '?s=' ) >= 0 ) {
-                            $args = array( 'post_type' => 'summit_sponsors', 'post_status'=>'publish','numberposts' => 8);
+                        if ( strpos( $_SERVER["REQUEST_URI"], '?s=' ) !== false ) {
+                            $args = array( 'post_type' => 'summit_sponsors', 'post_status'=>'publish','numberposts' => 8, 'orderby' => 'rand');
                         }
 
                         global $post;
