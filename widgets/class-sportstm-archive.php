@@ -10,7 +10,7 @@ if ( ! class_exists( 'SportsTM_Archives' ) ) {
         function __construct() {
             parent::__construct(
                 'sportstm_archives', // Base ID
-                __( 'Sports Time Machine Archives', 'woothemes' ), // Name
+                __( 'Sports Time Machine - Archives', THEME_ID ), // Name
                 array( 
                     'classname' => 'sportstm-archives-widget',
                     'description' => __( 'A Widget that shows Radio Show Archives.', THEME_ID ),
@@ -37,77 +37,65 @@ if ( ! class_exists( 'SportsTM_Archives' ) ) {
                     echo $args['before_title'] . apply_filters( 'widget_title', __( 'Radio Show Archives', THEME_ID ) ) . $args['after_title'];
                 }
 
-                if ( empty( $args['before_content'] ) ) {
-                    $args['before_content'] = '<div class="bl_box">';
-                }
-
-                if ( empty( $args['before_content'] ) ) {
-                    $args['after_content'] = '</div>';
-                }
-
-                echo $args['before_content'];
-
                 ?>
 
                     <ul>
 
-                            <?php
-                                $exp_uri = explode("/",$_SERVER['REQUEST_URI']);
-                                $station = str_replace( '-', '_', $exp_uri[1] );
+                        <?php
+                            $exp_uri = explode("/",$_SERVER['REQUEST_URI']);
+                            $station = str_replace( '-', '_', $exp_uri[1] );
 
-                                if ( strpos( $station, '?s=' ) >= 0 ) {
-                                    $station = 'summit_radio';
-                                }
+                            if ( strpos( $station, '?s=' ) >= 0 ) {
+                                $station = 'summit_radio';
+                            }
 
-                                $args = array(
-                                    'post_type'=>$station,
-                                    'numberposts'=>-1,
-                                    'orderby'=>'post_date',
-                                    'order'=>'ASC'
-                                );
+                            $args = array(
+                                'post_type'=>$station,
+                                'numberposts'=>-1,
+                                'orderby'=>'post_date',
+                                'order'=>'ASC'
+                            );
 
-                                $radio_shows = new WP_Query( $args );
-                                $years = array();
-                                if ( $radio_shows->have_posts() ) : 
+                            $radio_shows = new WP_Query( $args );
+                            $years = array();
+                            if ( $radio_shows->have_posts() ) : 
 
-                                    while ( $radio_shows->have_posts() ) : $radio_shows->the_post();
+                                while ( $radio_shows->have_posts() ) : $radio_shows->the_post();
 
-                                        $post_year = get_the_time( 'Y' );
-                                        $post_month = get_the_time( 'F' );
-                                        $years[$post_year][$post_month]['total']++;
-                                        $years[$post_year][$post_month]['posts'][] = array( 'title'=> get_the_title(), 'permalink'=>get_permalink( get_the_ID() ) );
+                                    $post_year = get_the_time( 'Y' );
+                                    $post_month = get_the_time( 'F' );
+                                    $years[$post_year][$post_month]['total']++;
+                                    $years[$post_year][$post_month]['posts'][] = array( 'title'=> get_the_title(), 'permalink'=>get_permalink( get_the_ID() ) );
 
-                                    endwhile;
+                                endwhile;
 
-                                    wp_reset_postdata();
+                                wp_reset_postdata();
 
-                                endif;
-                                foreach ( $years as $year_key => $year ) : ?>
+                            endif;
+                            foreach ( $years as $year_key => $year ) : ?>
 
-                                    <li class="radio_archive_year"><?php echo $year_key; ?>
+                                <li class="radio_archive_year"><?php echo $year_key; ?>
 
-                                        <ul>
+                                    <ul>
 
-                                        <?php foreach ( $year as $month_key => $month ) : ?>
+                                    <?php foreach ( $year as $month_key => $month ) : ?>
 
-                                            <li class="radio_archive_month">
-                                                <a href="/<?php echo str_replace( '_', '-', $station ); ?>/radio-show/?month=<?php echo $month_key?>-<?php echo $year_key?>">
-                                                    <?php echo $month_key; ?> (<?php echo $month['total']; ?>)</a>
-                                            </li>
+                                        <li class="radio_archive_month">
+                                            <a href="/<?php echo str_replace( '_', '-', $station ); ?>/radio-show/?month=<?php echo $month_key?>-<?php echo $year_key?>">
+                                                <?php echo $month_key; ?> (<?php echo $month['total']; ?>)</a>
+                                        </li>
 
-                                        <?php endforeach; ?>
+                                    <?php endforeach; ?>
 
-                                        </ul>
+                                    </ul>
 
-                                    </li>
+                                </li>
 
-                                <?php endforeach; ?>
+                            <?php endforeach; ?>
 
-                        </ul>
+                    </ul>
 
                 <?php
-            
-                echo $args['after_content'];
 
             echo $args['after_widget'];
 

@@ -45,7 +45,7 @@
 
         }
 
-        if ( $( '#fb-root' ).length > 0 ) {
+        if ( $( '.fb-like-box' ).length > 0 ) {
 
             (function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];

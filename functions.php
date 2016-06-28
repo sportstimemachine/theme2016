@@ -169,9 +169,8 @@ function sportstm_sidebars() {
         'description' => __( 'This is the default sidebar that appears.', THEME_ID ),
         'before_widget' => '<li id="%1$s" class="widget big_box %2$s">',
         'before_title' => '<h3 class="box_header" style="margin-bottom: 0;">',
-        'after_title' => '</h3>',
-        'before_content' => '<div class="bl_box">',
-        'after_content' => '</div>',
+        'after_title' => '</h3><div class="bl_box">',
+        'after_widget' => '</div></li>',
     ) );
     
     // Radio Show Sidebar
@@ -181,9 +180,8 @@ function sportstm_sidebars() {
         'description' => __( 'This is the sidebar that appears for Radio Show pages', THEME_ID ),
         'before_widget' => '<li id="%1$s" class="widget big_box %2$s">',
         'before_title' => '<h3 class="box_header" style="margin-bottom: 0;">',
-        'after_title' => '</h3>',
-        'before_content' => '<div class="bl_box">',
-        'after_content' => '</div>',
+        'after_title' => '</h3><div class="bl_box">',
+        'after_widget' => '</div></li>',
     ) );
     
 }
@@ -192,9 +190,15 @@ function sportstm_sidebars() {
 add_action( 'widgets_init', 'sportstm_widgets' );
 function sportstm_widgets() {
     
+    require_once( 'widgets/class-sportstm-sponsors-list.php' );
+    require_once( 'widgets/class-sportstm-facebook.php' );
     require_once( 'widgets/class-sportstm-archive.php' );
+    require_once( 'widgets/class-sportstm-tag-list.php' );
     
+    register_widget( 'SportsTM_Sponsors_List' );
+    register_widget( 'SportsTM_Facebook' );
     register_widget( 'SportsTM_Archives' );
+    register_widget( 'SportsTM_Tag_List' );
     
 }
 

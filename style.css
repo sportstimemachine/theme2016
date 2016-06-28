@@ -1221,3 +1221,7 @@ body {
 .radio_archive_year ul {
     margin-left: 2em;
 }
+
+#blBlog .bl_right .sportstm-sponsors-list-widget .bl_box {
+    padding: 5px;
+}
