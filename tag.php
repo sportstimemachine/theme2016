@@ -3,15 +3,16 @@
  * The template used to display Tag Archive pages
  */
 ?>
-<? get_header(); ?>
+<?php get_header(); ?>
 <div id="blBody">
 
-    <? 
-    $url = $_SERVER["REQUEST_URI"];
-    $tokens = explode('/', $url);
-    $tokens = $tokens[sizeof($tokens)-2];
+    <?php
+        $url = $_SERVER["REQUEST_URI"];
+        $tokens = explode('/', $url);
+        $tokens = $tokens[sizeof($tokens)-2];
     ?>
-    <?
+    
+    <?php
     query_posts('post_type=stark_radio&tag='.$tokens.'');
     if ( have_posts() ) : ?>
 

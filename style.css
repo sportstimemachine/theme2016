@@ -1225,3 +1225,9 @@ body {
 #blBlog .bl_right .sportstm-sponsors-list-widget .bl_box {
     padding: 5px;
 }
+
+.archive.tag .page-header h1, .archive.tag .entry-header h1 {
+    color: inherit;
+    text-align: left;
+    font-size: inherit;
+}

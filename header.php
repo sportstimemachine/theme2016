@@ -13,7 +13,7 @@
         
     </head>
 
-    <body>
+    <body <?php body_class(); ?>>
         <!-- Begin blContent -->
         <div id="blContent">
             <!-- Begin blContext -->
@@ -33,7 +33,7 @@
                 
     </head>
 
-    <body>
+    <body <?php body_class(); ?>>
 
 
         <!-- Begin blContent -->
